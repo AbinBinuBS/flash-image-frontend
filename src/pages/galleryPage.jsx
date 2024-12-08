@@ -23,6 +23,7 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import EmptyGalleryState from '../components/gallery/emptyGalleryState';
 import ImageEditModal from '../components/gallery/imageEditModal';
+import { BASEURL } from "../constant/constants";
 
 const SortableImageCard = ({ image, onEdit, onDelete, isDragging }) => {
   const {
@@ -102,7 +103,7 @@ const GalleryPage = () => {
 
   const fetchData = async () => {
     try {
-      const { data } = await userApiClient.get('http://localhost:3005/getImages');
+      const { data } = await userApiClient.get(`${BASEURL}/getImages`);
       
       const sortedImages = data.images.map((img, index) => ({
         ...img,
@@ -146,7 +147,7 @@ const GalleryPage = () => {
       });
 
       if (result.isConfirmed) {
-        await userApiClient.delete(`http://localhost:3005/deleteImage/${id}`);
+        await userApiClient.delete(`${BASEURL}/deleteImage/${id}`);
         const updatedImages = images.filter((image) => image._id !== id);
         setImages(updatedImages);
         setOriginalImages(updatedImages);  
@@ -188,7 +189,7 @@ const GalleryPage = () => {
 
   const saveRearrangedImages = async () => {
     try {
-      await userApiClient.put('http://localhost:3005/updateImageOrder', {
+      await userApiClient.put(`${BASEURL}/updateImageOrder`, {
         images: images.map((img) => ({
           _id: img._id,
           order: img.order,  

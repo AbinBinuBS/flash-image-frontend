@@ -4,6 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import { X } from 'lucide-react';
 import { toast } from "react-toastify";
 import userApiClient from "../services/userApi.js";
+import { BASEURL } from "../constant/constants.js";
 
 const ChangePasswordSchema = Yup.object().shape({
   oldPassword: Yup.string().required('Old password is required'),
@@ -19,7 +20,7 @@ const ChangePasswordSchema = Yup.object().shape({
 const PasswordChangeModal = ({ isOpen, onClose }) => {
   const handleChangePassword = async (values, { setSubmitting, resetForm }) => {
     try {
-      await userApiClient.post('http://localhost:3005/changePassword', {
+      await userApiClient.post(`${BASEURL}/changePassword`, {
         oldPassword: values.oldPassword,
         newPassword: values.newPassword
       });

@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik';
 import { X } from 'lucide-react';
 import { toast } from "react-toastify";
 import userApiClient from "../services/userApi";
+import { BASEURL } from "../constant/constants";
 
 const MultiImageUploadSchema = Yup.object().shape({
   images: Yup.array()
@@ -61,7 +62,7 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
         formData.append(`titles`, values.titles[index] || `Image ${index + 1}`);
       });
 
-      const response = await userApiClient.post('http://localhost:3005/upload-images', formData, {
+      const response = await userApiClient.post(`${BASEURL}/upload-images`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

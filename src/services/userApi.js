@@ -1,8 +1,9 @@
 import axios from "axios";
 import { clearToken } from "../redux/userSlice";
 import store from '../redux/store'
+import { BASEURL } from "../constant/constants";
 const userApiClient = axios.create({
-	baseURL: "http://localhost:3005",
+	baseURL: BASEURL,
 	headers: {
 		"Content-Type": "application/json",
 	},

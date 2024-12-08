@@ -6,6 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { accessToken } from '../redux/userSlice';
+import { BASEURL } from '../constant/constants';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -22,7 +23,7 @@ const LoginPage = () => {
     const dispatch = useDispatch()
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
-      const {data} = await axios.post(`http://localhost:3005/login`, values);
+      const {data} = await axios.post(`${BASEURL}/login`, values);
       dispatch(accessToken(data.accessToken))
       toast.success("Login Successfully...")
       navigate('/home');

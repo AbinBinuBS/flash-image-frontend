@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { accessToken } from '../redux/userSlice';
 import { toast } from 'react-toastify';
+import { BASEURL } from '../constant/constants';
 
 const RegisterSchema = Yup.object().shape({
   username: Yup.string()
@@ -41,7 +42,7 @@ const RegisterPage = () => {
   const dispatch = useDispatch()
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
-      const { data } = await axios.post(`http://localhost:3005/register`, values);
+      const { data } = await axios.post(`${BASEURL}/register`, values);
       dispatch(accessToken(data.accessToken))
       toast.success("Created account successfully...")
       navigate('/home');
