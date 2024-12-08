@@ -23,7 +23,7 @@ const ImageEditModal = ({
   };
 
   const handleSubmit = (values) => {
-    onUpdate(values, selectedFile);
+    onUpdate(values, selectedFile);  
   };
 
   return (
@@ -46,7 +46,7 @@ const ImageEditModal = ({
             title: image.title,
           }}
           validationSchema={ImageEditSchema}
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit} 
         >
           {({ errors, touched }) => (
             <Form>
@@ -104,4 +104,5 @@ const ImageEditModal = ({
   );
 };
 
-export default ImageEditModal;
+
+export default ImageEditModal

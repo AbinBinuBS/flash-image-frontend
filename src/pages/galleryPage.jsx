@@ -186,7 +186,7 @@ const GalleryPage = () => {
       });
     }
   };
-
+       
   const saveRearrangedImages = async () => {
     try {
       await userApiClient.put(`${BASEURL}/updateImageOrder`, {
@@ -209,6 +209,28 @@ const GalleryPage = () => {
     setImages([...originalImages]);
     setIsRearrangeMode(false);
   };
+
+  const handleUpdateImage = async (updatedValues, selectedFile) => {
+    try {
+      const formData = new FormData();
+      formData.append("title", updatedValues.title);
+      if (selectedFile) {
+        formData.append("image", selectedFile);
+      }      
+      await userApiClient.put(`${BASEURL}/updateImage/${editingImage._id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });      
+      toast.success("Image updated successfully");
+      setEditingImage(null);
+      fetchData();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update image");
+    }
+  };
+  
 
   const renderRearrangeMode = () => {
     return (
@@ -379,18 +401,11 @@ const GalleryPage = () => {
         {renderPagination()}
       </div>
       {editingImage && (
-        <ImageEditModal
-          image={editingImage}
-          onClose={() => setEditingImage(null)}
-          onSave={(updatedImage) => {
-            setImages((prevImages) =>
-              prevImages.map((img) =>
-                img._id === updatedImage._id ? updatedImage : img
-              )
-            );
-            setEditingImage(null);
-          }}
-        />
+        <ImageEditModal 
+        image={editingImage} 
+        onClose={() => setEditingImage(null)} 
+        onUpdate={handleUpdateImage} 
+      />      
       )}
     </div>
   );
