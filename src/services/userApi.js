@@ -3,10 +3,7 @@ import { clearToken } from "../redux/userSlice";
 import store from '../redux/store'
 import { BASEURL } from "../constant/constants";
 const userApiClient = axios.create({
-	baseURL: `${BASEURL}`,
-	headers: {
-		"Content-Type": "application/json",
-	},
+	baseURL: `${BASEURL}`
 });
 
 userApiClient.interceptors.request.use(
