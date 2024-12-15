@@ -1,1 +1,1 @@
-export const BASEURL = "http://localhost:3005"
+export const BASEURL = "https://flash-image.onrender.com"
