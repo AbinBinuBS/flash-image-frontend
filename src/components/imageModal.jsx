@@ -115,29 +115,31 @@ const ImageUploadModal = ({ isOpen, onClose }) => {
               </div>
 
               {imageDetails.length > 0 && (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-                  {imageDetails.map((image, index) => (
-                    <div 
-                      key={index} 
-                      className="border rounded-lg p-3 flex flex-col items-center space-y-2"
-                    >
-                      <img 
-                        src={image.preview} 
-                        alt={`Preview ${index + 1}`} 
-                        className="w-full h-40 object-cover rounded-lg"
-                      />
-                      <input
-                        type="text"
-                        placeholder={`Title for image ${index + 1}`}
-                        value={values.titles[index] || ''}
-                        onChange={(e) => updateImageTitle(index, e.target.value, setFieldValue, values)}
-                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      />
-                      {errors.titles && touched.titles && errors.titles[index] && (
-                        <p className="text-red-500 text-sm mt-1">{errors.titles[index]}</p>
-                      )}
-                    </div>
-                  ))}
+                <div className="max-h-[300px] overflow-y-auto">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                    {imageDetails.map((image, index) => (
+                      <div 
+                        key={index} 
+                        className="border rounded-lg p-3 flex flex-col items-center space-y-2"
+                      >
+                        <img 
+                          src={image.preview} 
+                          alt={`Preview ${index + 1}`} 
+                          className="w-full h-40 object-cover rounded-lg"
+                        />
+                        <input
+                          type="text"
+                          placeholder={`Title for image ${index + 1}`}
+                          value={values.titles[index] || ''}
+                          onChange={(e) => updateImageTitle(index, e.target.value, setFieldValue, values)}
+                          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                        {errors.titles && touched.titles && errors.titles[index] && (
+                          <p className="text-red-500 text-sm mt-1">{errors.titles[index]}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
 
